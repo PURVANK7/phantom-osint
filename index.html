@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHANTOM — OSINT Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     BOOT SCREEN
+═══════════════════════════════════════════════ -->
+<div id="boot-screen">
+  <div class="boot-content">
+    <div class="boot-logo">PHANTOM</div>
+    <div class="boot-sub">OSINT Intelligence Platform v2.4.1</div>
+    <div class="boot-bar"><div class="boot-fill" id="boot-fill"></div></div>
+    <div class="boot-log" id="boot-log"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     LOGIN PAGE
+═══════════════════════════════════════════════ -->
+<div id="login-page" class="hidden">
+  <div class="login-bg">
+    <canvas id="matrix-canvas"></canvas>
+  </div>
+  <div class="login-container">
+    <div class="login-panel">
+      <div class="login-header">
+        <div class="logo-mark">⬡</div>
+        <h1 class="logo-text">PHANTOM</h1>
+        <p class="logo-sub">Open Source Intelligence Platform</p>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login')">SIGN IN</button>
+        <button class="auth-tab" onclick="switchTab('register')">REGISTER</button>
+        <button class="auth-tab admin-tab" onclick="switchTab('admin')">⚑ ADMIN</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="tab-login" class="tab-content active">
+        <div class="form-group">
+          <label>USERNAME OR EMAIL</label>
+          <input type="text" id="login-user" placeholder="operator@phantom.io" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>PASSWORD</label>
+          <input type="password" id="login-pass" placeholder="••••••••••••">
+        </div>
+        <button class="btn-primary" onclick="doLogin()">ACCESS SYSTEM</button>
+        <div class="divider"><span>OR CONTINUE WITH</span></div>
+        <div class="social-grid">
+          <button class="social-btn google" onclick="socialLogin('Google')">
+            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+            Google
+          </button>
+          <button class="social-btn facebook" onclick="socialLogin('Facebook')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </button>
+          <button class="social-btn linkedin" onclick="socialLogin('LinkedIn')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </button>
+        </div>
+        <p class="demo-hint">Demo: <strong>operator</strong> / <strong>phantom2024</strong></p>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="tab-register" class="tab-content">
+        <div class="form-row">
+          <div class="form-group">
+            <label>USERNAME</label>
+            <input type="text" id="reg-user" placeholder="operator">
+          </div>
+          <div class="form-group">
+            <label>EMAIL</label>
+            <input type="email" id="reg-email" placeholder="you@domain.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>PHONE NUMBER</label>
+            <input type="tel" id="reg-phone" placeholder="+1 555 000 0000">
+          </div>
+          <div class="form-group">
+            <label>PASSWORD</label>
+            <input type="password" id="reg-pass" placeholder="••••••••••">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>CONFIRM PASSWORD</label>
+          <input type="password" id="reg-pass2" placeholder="••••••••••">
+        </div>
+        <div class="form-group role-select">
+          <label>TEAM ROLE</label>
+          <select id="reg-role">
+            <option value="blue">Blue Team — Defender</option>
+            <option value="red">Red Team — Attacker</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="doRegister()">CREATE ACCOUNT</button>
+      </div>
+
+      <!-- ADMIN FORM -->
+      <div id="tab-admin" class="tab-content">
+        <div class="admin-warning">
+          <span>⚠</span> RESTRICTED ACCESS — ADMIN ONLY
+        </div>
+        <div class="form-group">
+          <label>ADMIN ID</label>
+          <input type="text" id="admin-id" placeholder="PHANTOM_ADMIN">
+        </div>
+        <div class="form-group">
+          <label>MASTER PASSWORD</label>
+          <input type="password" id="admin-pass" placeholder="••••••••••••••••">
+        </div>
+        <button class="btn-primary btn-admin" onclick="doAdminLogin()">ENTER ADMIN PANEL</button>
+        <p class="demo-hint">Admin ID: <strong>PHANTOM_ADMIN</strong> / Pass: <strong>admin@phantom2024</strong></p>
+      </div>
+
+      <div id="login-msg" class="login-msg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN APP
+═══════════════════════════════════════════════ -->
+<div id="app" class="hidden">
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">⬡</div>
+      <span>PHANTOM</span>
+    </div>
+    <div class="user-badge" id="user-badge">
+      <div class="user-avatar" id="user-avatar">OP</div>
+      <div>
+        <div class="user-name" id="user-name">Operator</div>
+        <div class="user-role" id="user-role">Blue Team</div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link active" onclick="showPanel('dashboard')"><span class="nav-icon">⊞</span> Dashboard</a></li>
+      <li class="nav-section">RECONNAISSANCE</li>
+      <li><a href="#" class="nav-link" onclick="showPanel('whois')"><span class="nav-icon">🌐</span> WHOIS Lookup</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('dns')"><span class="nav-icon">📡</span> DNS Recon</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('ip')"><span class="nav-icon">📍</span> IP Intelligence</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('subdomain')"><span class="nav-icon">🔗</span> Subdomain Enum</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('headers')"><span class="nav-icon">📋</span> HTTP Headers</a></li>
+      <li class="nav-section">SOCIAL OSINT</li>
+      <li><a href="#" class="nav-link" onclick="showPanel('username')"><span class="nav-icon">👤</span> Username Hunt</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('email')"><span class="nav-icon">✉️</span> Email Intel</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('phone')"><span class="nav-icon">📞</span> Phone Lookup</a></li>
+      <li class="nav-section">THREAT INTEL</li>
+      <li><a href="#" class="nav-link" onclick="showPanel('breach')"><span class="nav-icon">💀</span> Breach Check</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('shodan')"><span class="nav-icon">🔭</span> Shodan Search</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('virustotal')"><span class="nav-icon">🛡️</span> VirusTotal</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('urlscan')"><span class="nav-icon">🔍</span> URL Scan</a></li>
+      <li class="nav-section">ADVANCED</li>
+      <li><a href="#" class="nav-link" onclick="showPanel('metadata')"><span class="nav-icon">📄</span> Metadata Extract</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('geoip')"><span class="nav-icon">🗺️</span> GeoIP Map</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('ssl')"><span class="nav-icon">🔐</span> SSL Inspector</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('darkweb')"><span class="nav-icon">🕸️</span> Dark Web Monitor</a></li>
+      <li><a href="#" class="nav-link" onclick="showPanel('report')"><span class="nav-icon">📊</span> Report Builder</a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="doLogout()">⏻ LOGOUT</button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <header class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-search">
+        <input type="text" placeholder="Quick target search... (domain, IP, email, username)" id="global-search">
+        <button onclick="globalSearch()">⌕</button>
+      </div>
+      <div class="topbar-right">
+        <div class="status-dot active"></div>
+        <span class="status-text">LIVE</span>
+        <div class="notif-bell" onclick="toggleNotifs()">🔔<span class="notif-count">3</span></div>
+      </div>
+    </header>
+
+    <!-- PANELS -->
+    <div class="panels">
+
+      <!-- ── DASHBOARD ── -->
+      <div id="panel-dashboard" class="panel active">
+        <div class="panel-header">
+          <h2>Intelligence Dashboard</h2>
+          <div class="panel-meta">Last updated: <span id="last-update"></span></div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card red"><div class="stat-num" id="stat-scans">0</div><div class="stat-label">Total Scans</div></div>
+          <div class="stat-card blue"><div class="stat-num" id="stat-targets">0</div><div class="stat-label">Targets Analyzed</div></div>
+          <div class="stat-card yellow"><div class="stat-num" id="stat-breaches">0</div><div class="stat-label">Breaches Found</div></div>
+          <div class="stat-card green"><div class="stat-num" id="stat-reports">0</div><div class="stat-label">Reports Generated</div></div>
+        </div>
+        <div class="dash-grid">
+          <div class="dash-card">
+            <h3>⚡ Quick Recon</h3>
+            <p>Run a fast OSINT sweep on any target</p>
+            <div class="form-group"><input type="text" id="quick-target" placeholder="domain.com / 1.2.3.4 / email"></div>
+            <button class="btn-primary" onclick="quickRecon()">RUN SWEEP</button>
+            <div id="quick-result" class="result-box hidden"></div>
+          </div>
+          <div class="dash-card">
+            <h3>📰 Threat Feed</h3>
+            <div id="threat-feed" class="feed-list">
+              <div class="feed-item red">🔴 Critical: New ransomware targeting financial sector</div>
+              <div class="feed-item yellow">🟡 Medium: CVE-2024-1234 actively exploited</div>
+              <div class="feed-item blue">🔵 Info: HaveIBeenPwned added 2M new records</div>
+              <div class="feed-item red">🔴 High: Mass credential stuffing campaign detected</div>
+              <div class="feed-item green">🟢 Low: SSL cert change detected on monitored domain</div>
+            </div>
+          </div>
+          <div class="dash-card full-width">
+            <h3>📈 Scan Activity (Last 7 Days)</h3>
+            <canvas id="activity-chart" height="80"></canvas>
+          </div>
+          <div class="dash-card">
+            <h3>🎯 Recent Targets</h3>
+            <div id="recent-targets" class="target-list">
+              <div class="target-item"><span class="t-icon">🌐</span><span>example.com</span><span class="t-tag">WHOIS</span></div>
+              <div class="target-item"><span class="t-icon">📍</span><span>8.8.8.8</span><span class="t-tag">IP</span></div>
+              <div class="target-item"><span class="t-icon">👤</span><span>john_doe</span><span class="t-tag">USER</span></div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <h3>🔑 API Status</h3>
+            <div class="api-status-list" id="api-status-list">
+              <div class="api-item"><span class="api-dot ok"></span>IPInfo.io<span class="api-val">FREE</span></div>
+              <div class="api-item"><span class="api-dot ok"></span>HaveIBeenPwned<span class="api-val">v3</span></div>
+              <div class="api-item"><span class="api-dot ok"></span>VirusTotal<span class="api-val">FREE</span></div>
+              <div class="api-item"><span class="api-dot ok"></span>URLScan.io<span class="api-val">FREE</span></div>
+              <div class="api-item"><span class="api-dot ok"></span>CertSH<span class="api-val">FREE</span></div>
+              <div class="api-item"><span class="api-dot ok"></span>Shodan<span class="api-val">FREE</span></div>
+              <div class="api-item"><span class="api-dot ok"></span>Whois JSON<span class="api-val">FREE</span></div>
+              <div class="api-item"><span class="api-dot ok"></span>DNS over HTTPS<span class="api-val">FREE</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WHOIS ── -->
+      <div id="panel-whois" class="panel">
+        <div class="panel-header"><h2>🌐 WHOIS Lookup</h2><span class="badge blue">RECON</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="whois-input" placeholder="Enter domain (e.g. google.com)">
+            <button class="btn-run" onclick="runWhois()">LOOKUP</button>
+          </div>
+          <div id="whois-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── DNS ── -->
+      <div id="panel-dns" class="panel">
+        <div class="panel-header"><h2>📡 DNS Reconnaissance</h2><span class="badge blue">RECON</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="dns-input" placeholder="Enter domain">
+            <select id="dns-type">
+              <option>A</option><option>AAAA</option><option>MX</option>
+              <option>NS</option><option>TXT</option><option>CNAME</option><option>SOA</option>
+            </select>
+            <button class="btn-run" onclick="runDNS()">RESOLVE</button>
+          </div>
+          <div id="dns-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── IP ── -->
+      <div id="panel-ip" class="panel">
+        <div class="panel-header"><h2>📍 IP Intelligence</h2><span class="badge blue">RECON</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="ip-input" placeholder="Enter IP address (e.g. 8.8.8.8)">
+            <button class="btn-run" onclick="runIP()">ANALYZE</button>
+          </div>
+          <div id="ip-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── SUBDOMAIN ── -->
+      <div id="panel-subdomain" class="panel">
+        <div class="panel-header"><h2>🔗 Subdomain Enumeration</h2><span class="badge red">RED TEAM</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="sub-input" placeholder="Enter domain (e.g. tesla.com)">
+            <button class="btn-run" onclick="runSubdomain()">ENUMERATE</button>
+          </div>
+          <div id="sub-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── HEADERS ── -->
+      <div id="panel-headers" class="panel">
+        <div class="panel-header"><h2>📋 HTTP Headers Inspector</h2><span class="badge blue">RECON</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="headers-input" placeholder="https://example.com">
+            <button class="btn-run" onclick="runHeaders()">INSPECT</button>
+          </div>
+          <div id="headers-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── USERNAME ── -->
+      <div id="panel-username" class="panel">
+        <div class="panel-header"><h2>👤 Username Hunt</h2><span class="badge yellow">SOCIAL OSINT</span></div>
+        <div class="tool-card">
+          <p class="tool-desc">Check username availability and presence across 50+ platforms</p>
+          <div class="input-row">
+            <input type="text" id="username-input" placeholder="Enter username to search">
+            <button class="btn-run" onclick="runUsername()">HUNT</button>
+          </div>
+          <div id="username-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── EMAIL ── -->
+      <div id="panel-email" class="panel">
+        <div class="panel-header"><h2>✉️ Email Intelligence</h2><span class="badge yellow">SOCIAL OSINT</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="email-input" placeholder="target@email.com">
+            <button class="btn-run" onclick="runEmail()">INVESTIGATE</button>
+          </div>
+          <div id="email-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── PHONE ── -->
+      <div id="panel-phone" class="panel">
+        <div class="panel-header"><h2>📞 Phone Lookup</h2><span class="badge yellow">SOCIAL OSINT</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="phone-input" placeholder="+1 555 000 0000">
+            <button class="btn-run" onclick="runPhone()">LOOKUP</button>
+          </div>
+          <div id="phone-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── BREACH ── -->
+      <div id="panel-breach" class="panel">
+        <div class="panel-header"><h2>💀 Breach Check</h2><span class="badge red">THREAT INTEL</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="breach-input" placeholder="email@example.com">
+            <button class="btn-run" onclick="runBreach()">CHECK BREACH</button>
+          </div>
+          <div id="breach-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── SHODAN ── -->
+      <div id="panel-shodan" class="panel">
+        <div class="panel-header"><h2>🔭 Shodan Search</h2><span class="badge red">THREAT INTEL</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="shodan-input" placeholder="IP, hostname, or search query">
+            <button class="btn-run" onclick="runShodan()">SEARCH</button>
+          </div>
+          <div class="api-key-note">⚙️ Shodan API Key: <input type="text" id="shodan-key" placeholder="Enter your Shodan API key" style="width:200px"></div>
+          <div id="shodan-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── VIRUSTOTAL ── -->
+      <div id="panel-virustotal" class="panel">
+        <div class="panel-header"><h2>🛡️ VirusTotal Check</h2><span class="badge red">THREAT INTEL</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="vt-input" placeholder="URL, domain, IP, or file hash">
+            <button class="btn-run" onclick="runVT()">SCAN</button>
+          </div>
+          <div class="api-key-note">⚙️ VT API Key: <input type="text" id="vt-key" placeholder="Enter VirusTotal API key" style="width:220px"></div>
+          <div id="vt-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── URLSCAN ── -->
+      <div id="panel-urlscan" class="panel">
+        <div class="panel-header"><h2>🔍 URL Scan</h2><span class="badge red">THREAT INTEL</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="urlscan-input" placeholder="https://suspicious-url.com">
+            <button class="btn-run" onclick="runURLScan()">SCAN URL</button>
+          </div>
+          <div id="urlscan-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── METADATA ── -->
+      <div id="panel-metadata" class="panel">
+        <div class="panel-header"><h2>📄 Metadata Extractor</h2><span class="badge yellow">ADVANCED</span></div>
+        <div class="tool-card">
+          <p class="tool-desc">Extract hidden metadata from images, PDFs, and documents</p>
+          <div class="upload-area" onclick="document.getElementById('meta-file').click()">
+            <input type="file" id="meta-file" style="display:none" onchange="runMetadata(this)">
+            <div class="upload-icon">📁</div>
+            <p>Click or drag file here<br><small>Supports: JPG, PNG, PDF, DOCX, MP4</small></p>
+          </div>
+          <div id="metadata-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── GEOIP ── -->
+      <div id="panel-geoip" class="panel">
+        <div class="panel-header"><h2>🗺️ GeoIP Map</h2><span class="badge yellow">ADVANCED</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="geoip-input" placeholder="Enter IP address">
+            <button class="btn-run" onclick="runGeoIP()">MAP IT</button>
+          </div>
+          <div id="geoip-result" class="result-box hidden"></div>
+          <div id="geoip-map" class="map-embed hidden">
+            <iframe id="map-iframe" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SSL ── -->
+      <div id="panel-ssl" class="panel">
+        <div class="panel-header"><h2>🔐 SSL Inspector</h2><span class="badge blue">ADVANCED</span></div>
+        <div class="tool-card">
+          <div class="input-row">
+            <input type="text" id="ssl-input" placeholder="domain.com">
+            <button class="btn-run" onclick="runSSL()">INSPECT</button>
+          </div>
+          <div id="ssl-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── DARK WEB ── -->
+      <div id="panel-darkweb" class="panel">
+        <div class="panel-header"><h2>🕸️ Dark Web Monitor</h2><span class="badge red">ADVANCED</span></div>
+        <div class="tool-card">
+          <div class="darkweb-warning">
+            ⚠️ This module monitors publicly indexed dark web mentions via Tor2Web proxies and aggregated feeds. No direct Tor connection required.
+          </div>
+          <div class="input-row">
+            <input type="text" id="darkweb-input" placeholder="email, domain, brand, keyword...">
+            <button class="btn-run" onclick="runDarkWeb()">MONITOR</button>
+          </div>
+          <div id="darkweb-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+      <!-- ── REPORT ── -->
+      <div id="panel-report" class="panel">
+        <div class="panel-header"><h2>📊 Report Builder</h2><span class="badge green">EXPORT</span></div>
+        <div class="tool-card">
+          <p class="tool-desc">Generate comprehensive OSINT reports from your session data</p>
+          <div class="report-options">
+            <label><input type="checkbox" checked> WHOIS Data</label>
+            <label><input type="checkbox" checked> DNS Records</label>
+            <label><input type="checkbox" checked> IP Intelligence</label>
+            <label><input type="checkbox" checked> Breach Data</label>
+            <label><input type="checkbox"> Shodan Results</label>
+            <label><input type="checkbox" checked> SSL Certificates</label>
+          </div>
+          <div class="form-group">
+            <label>TARGET NAME / CASE REFERENCE</label>
+            <input type="text" id="report-name" placeholder="OP_PHANTOM_001">
+          </div>
+          <button class="btn-primary" onclick="generateReport()">GENERATE REPORT</button>
+          <div id="report-result" class="result-box hidden"></div>
+        </div>
+      </div>
+
+    </div><!-- /panels -->
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ADMIN PANEL
+═══════════════════════════════════════════════ -->
+<div id="admin-panel" class="hidden">
+  <div class="admin-topbar">
+    <span class="admin-logo">⚑ PHANTOM ADMIN CONTROL</span>
+    <button class="btn-logout" onclick="exitAdmin()">EXIT ADMIN</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <button class="admin-nav active" onclick="adminTab('users')">👥 Users</button>
+      <button class="admin-nav" onclick="adminTab('logs')">📜 Audit Logs</button>
+      <button class="admin-nav" onclick="adminTab('apis')">🔑 API Keys</button>
+      <button class="admin-nav" onclick="adminTab('config')">⚙️ Config</button>
+      <button class="admin-nav" onclick="adminTab('stats')">📈 Stats</button>
+    </div>
+    <div class="admin-main">
+
+      <div id="atab-users" class="admin-tab active">
+        <h3>User Management</h3>
+        <table class="admin-table">
+          <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="user-table-body">
+            <tr><td>001</td><td>operator</td><td>op@phantom.io</td><td>Blue Team</td><td><span class="badge green">Active</span></td><td><button class="btn-xs">Edit</button> <button class="btn-xs red">Ban</button></td></tr>
+            <tr><td>002</td><td>redteam1</td><td>rt@phantom.io</td><td>Red Team</td><td><span class="badge green">Active</span></td><td><button class="btn-xs">Edit</button> <button class="btn-xs red">Ban</button></td></tr>
+          </tbody>
+        </table>
+        <button class="btn-primary" onclick="addUser()">+ ADD USER</button>
+      </div>
+
+      <div id="atab-logs" class="admin-tab">
+        <h3>Audit Logs</h3>
+        <div class="log-viewer" id="audit-log">
+          <div class="log-line"><span class="log-time">[2024-01-15 14:23:11]</span> <span class="log-user">operator</span> ran WHOIS on google.com</div>
+          <div class="log-line"><span class="log-time">[2024-01-15 14:21:05]</span> <span class="log-user">redteam1</span> ran Subdomain Enum on tesla.com</div>
+          <div class="log-line"><span class="log-time">[2024-01-15 14:19:44]</span> <span class="log-user">operator</span> checked breach for test@test.com</div>
+          <div class="log-line warn">[2024-01-15 14:15:00] ADMIN login from 192.168.1.1</div>
+          <div class="log-line"><span class="log-time">[2024-01-15 14:10:33]</span> <span class="log-user">operator</span> generated Report OP_001</div>
+        </div>
+        <button class="btn-primary" onclick="exportLogs()">EXPORT LOGS</button>
+      </div>
+
+      <div id="atab-apis" class="admin-tab">
+        <h3>API Key Management</h3>
+        <div class="api-key-grid" id="api-key-grid">
+          <div class="api-key-row"><label>IPInfo.io API Key</label><input type="text" value="FREE_TIER" placeholder="Your key"><button class="btn-xs">Save</button></div>
+          <div class="api-key-row"><label>Shodan API Key</label><input type="text" placeholder="Enter Shodan key"><button class="btn-xs">Save</button></div>
+          <div class="api-key-row"><label>VirusTotal API Key</label><input type="text" placeholder="Enter VT key"><button class="btn-xs">Save</button></div>
+          <div class="api-key-row"><label>HaveIBeenPwned Key</label><input type="text" placeholder="Enter HIBP key"><button class="btn-xs">Save</button></div>
+          <div class="api-key-row"><label>SecurityTrails Key</label><input type="text" placeholder="Enter key"><button class="btn-xs">Save</button></div>
+        </div>
+      </div>
+
+      <div id="atab-config" class="admin-tab">
+        <h3>Platform Configuration</h3>
+        <div class="config-grid">
+          <div class="config-item"><label>Platform Name</label><input type="text" value="PHANTOM"></div>
+          <div class="config-item"><label>Max Users</label><input type="number" value="50"></div>
+          <div class="config-item"><label>Rate Limit (req/min)</label><input type="number" value="30"></div>
+          <div class="config-item"><label>Session Timeout (min)</label><input type="number" value="60"></div>
+          <div class="config-item toggle-item"><label>Require 2FA</label><input type="checkbox"></div>
+          <div class="config-item toggle-item"><label>Dark Web Monitor</label><input type="checkbox" checked></div>
+          <div class="config-item toggle-item"><label>Audit Logging</label><input type="checkbox" checked></div>
+        </div>
+        <button class="btn-primary">SAVE CONFIG</button>
+      </div>
+
+      <div id="atab-stats" class="admin-tab">
+        <h3>Platform Statistics</h3>
+        <div class="stat-grid">
+          <div class="stat-card blue"><div class="stat-num">2</div><div class="stat-label">Total Users</div></div>
+          <div class="stat-card red"><div class="stat-num" id="admin-scans">0</div><div class="stat-label">Total Scans</div></div>
+          <div class="stat-card yellow"><div class="stat-num">8</div><div class="stat-label">Active APIs</div></div>
+          <div class="stat-card green"><div class="stat-num">99.9%</div><div class="stat-label">Uptime</div></div>
+        </div>
+        <canvas id="admin-chart" height="100"></canvas>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATION PANEL -->
+<div id="notif-panel" class="notif-panel hidden">
+  <div class="notif-header">Notifications</div>
+  <div class="notif-item red">🔴 New breach data available for monitored emails</div>
+  <div class="notif-item yellow">🟡 Shodan found 3 new open ports on tracked IP</div>
+  <div class="notif-item blue">🔵 SSL cert expiry in 14 days: example.com</div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
