@@ -510,8 +510,8 @@
         <table class="admin-table">
           <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
           <tbody id="user-table-body">
-            <tr><td>001</td><td>operator</td><td>op@phantom.io</td><td>Blue Team</td><td><span class="badge green">Active</span></td><td><button class="btn-xs">Edit</button> <button class="btn-xs red">Ban</button></td></tr>
-            <tr><td>002</td><td>redteam1</td><td>rt@phantom.io</td><td>Red Team</td><td><span class="badge green">Active</span></td><td><button class="btn-xs">Edit</button> <button class="btn-xs red">Ban</button></td></tr>
+            <tr><td>001</td><td>operator</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95fae5d5e5fdf4fbe1faf8bbfcfa">[email&#160;protected]</a></td><td>Blue Team</td><td><span class="badge green">Active</span></td><td><button class="btn-xs">Edit</button> <button class="btn-xs red">Ban</button></td></tr>
+            <tr><td>002</td><td>redteam1</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b595f6b5b434a455f4446054244">[email&#160;protected]</a></td><td>Red Team</td><td><span class="badge green">Active</span></td><td><button class="btn-xs">Edit</button> <button class="btn-xs red">Ban</button></td></tr>
           </tbody>
         </table>
         <button class="btn-primary" onclick="addUser()">+ ADD USER</button>
@@ -522,7 +522,7 @@
         <div class="log-viewer" id="audit-log">
           <div class="log-line"><span class="log-time">[2024-01-15 14:23:11]</span> <span class="log-user">operator</span> ran WHOIS on google.com</div>
           <div class="log-line"><span class="log-time">[2024-01-15 14:21:05]</span> <span class="log-user">redteam1</span> ran Subdomain Enum on tesla.com</div>
-          <div class="log-line"><span class="log-time">[2024-01-15 14:19:44]</span> <span class="log-user">operator</span> checked breach for test@test.com</div>
+          <div class="log-line"><span class="log-time">[2024-01-15 14:19:44]</span> <span class="log-user">operator</span> checked breach for <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3d49584e497d49584e49135e5250">[email&#160;protected]</a></div>
           <div class="log-line warn">[2024-01-15 14:15:00] ADMIN login from 192.168.1.1</div>
           <div class="log-line"><span class="log-time">[2024-01-15 14:10:33]</span> <span class="log-user">operator</span> generated Report OP_001</div>
         </div>
@@ -571,12 +571,4 @@
 
 <!-- NOTIFICATION PANEL -->
 <div id="notif-panel" class="notif-panel hidden">
-  <div class="notif-header">Notifications</div>
-  <div class="notif-item red">🔴 New breach data available for monitored emails</div>
-  <div class="notif-item yellow">🟡 Shodan found 3 new open ports on tracked IP</div>
-  <div class="notif-item blue">🔵 SSL cert expiry in 14 days: example.com</div>
-</div>
-
-<script src="app.js"></script>
-</body>
-</html>
+  <div class=
