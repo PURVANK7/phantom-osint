@@ -34,9 +34,16 @@ const BOOT_MESSAGES = [
   '> PHANTOM ready.'
 ];
 
-window.onload = () => {
+function startBoot() {
   const fill = document.getElementById('boot-fill');
   const log = document.getElementById('boot-log');
+
+  // Safety check — if elements missing, skip straight to login
+  if (!fill || !log) {
+    showLogin();
+    return;
+  }
+
   let i = 0;
   const interval = setInterval(() => {
     if (i < BOOT_MESSAGES.length) {
@@ -48,16 +55,35 @@ window.onload = () => {
     } else {
       clearInterval(interval);
       setTimeout(() => {
-        document.getElementById('boot-screen').style.opacity = '0';
+        const bootScreen = document.getElementById('boot-screen');
+        if (bootScreen) bootScreen.style.opacity = '0';
         setTimeout(() => {
-          document.getElementById('boot-screen').classList.add('hidden');
-          document.getElementById('login-page').classList.remove('hidden');
-          startMatrix();
+          showLogin();
         }, 500);
       }, 400);
     }
   }, 250);
-};
+
+  // Failsafe: if boot hangs for any reason, force login after 6 seconds
+  setTimeout(() => {
+    showLogin();
+  }, 6000);
+}
+
+function showLogin() {
+  const bootScreen = document.getElementById('boot-screen');
+  const loginPage = document.getElementById('login-page');
+  if (bootScreen) bootScreen.classList.add('hidden');
+  if (loginPage) loginPage.classList.remove('hidden');
+  try { startMatrix(); } catch(e) {}
+}
+
+// Start as soon as DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startBoot);
+} else {
+  startBoot();
+}
 
 // ── MATRIX CANVAS ─────────────────────────────────────
 function startMatrix() {
